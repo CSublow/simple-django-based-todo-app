@@ -30,9 +30,9 @@ ALLOWED_HOSTS = [os.environ.get('C9_HOSTNAME'),
                  os.environ.get('HOSTNAME')]
       
 # Below code was copied from video. Was never told to add it and it didn't previously exist in settings.py           
-# host = os.environ.get('SITE_HOST')
-# if host:
-#     ALLOWED_HOSTS.append(host)
+host = os.environ.get('SITE_HOST')
+if host:
+    ALLOWED_HOSTS.append(host)
 
 # Application definition
 
