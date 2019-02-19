@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import dj_database_url
 
+# If there is a environment variable called development, create a variable called development and set it to true
+if os.environ.get('DEVELOPMENT'):
+    development = True # This will tell the program it is in a dev environment. If that's the case, you don't want to use production settings, like the database url specific to heroku
+else:
+    development = False
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +31,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'qrbhpi6ojk*pt%ua7=5$cqig5zvf0ugyxu=7m511#m+j#&x&x#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# If development is true, DEBUG should also be true and vice versa. You don't want debug on during production or else users will see your errors
+DEBUG = development
 
 ALLOWED_HOSTS = [os.environ.get('C9_HOSTNAME'), 
                  os.environ.get('HOSTNAME')]
@@ -80,18 +88,21 @@ WSGI_APPLICATION = 'django_todo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-    
-DATABASES = {
-    # 'default' is a nested dictionary
-    # Paste in the database url as the arg into parse()
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-}
+# If in development, use sqlite3
+if development:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+# Else use dj_database_url
+else:
+    DATABASES = {
+        # 'default' is a nested dictionary
+        # Paste in the database url as the arg into parse()
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
