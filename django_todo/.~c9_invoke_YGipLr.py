@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # If development is true, DEBUG should also be true and vice versa. You don't want debug on during production or else users will see your errors
@@ -96,7 +96,7 @@ if development:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-# Else use dj_database_url
+else:
 else:
     DATABASES = {
         # 'default' is a nested dictionary

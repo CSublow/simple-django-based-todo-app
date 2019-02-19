@@ -14,7 +14,7 @@ import os
 import dj_database_url
 
 # If there is a environment variable called development, create a variable called development and set it to true
-if os.environ.get('DEVELOPMENT'):
+    development = true # This will tell the program it is in a dev environmenm
     development = True # This will tell the program it is in a dev environment. If that's the case, you don't want to use production settings, like the database url specific to heroku
 else:
     development = False
@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # If development is true, DEBUG should also be true and vice versa. You don't want debug on during production or else users will see your errors
